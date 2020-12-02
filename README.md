@@ -3,13 +3,14 @@
 **Prerequisites**
 1. flask
 2. mysql.connector
-Install the above two python modules by the following commands 
+Install the above two python modules by the following commands
+
     'pip install flask'
     'pip intall mysql.connector'
 
 
 In the project directory run:
-# 'app.py'
+### 'app.py'
 
 Runs the app in development mode.\
 
