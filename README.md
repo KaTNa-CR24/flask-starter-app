@@ -3,9 +3,11 @@
 **Prerequisites**
 1. flask
 2. mysql.connector
+
 Install the above two python modules by the following commands
 
-    'pip install flask'
+    'pip install flask',
+    
     'pip intall mysql.connector'
 
 
