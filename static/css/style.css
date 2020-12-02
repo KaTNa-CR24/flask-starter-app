@@ -1,0 +1,13 @@
+.register-div, .courses-div, .apply-div, .add-course-div, .students-div{
+    margin:10px 0 0 30px;
+    display: none;
+    color: blue;
+}
+
+.table {
+    border:1px solid black;    
+}
+th{
+   
+    color:blue;
+}

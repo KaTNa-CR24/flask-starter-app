@@ -1,0 +1,86 @@
+<html>
+    <head>
+        <title>Student</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="{{url_for('static', filename='js/view.js')}}"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <h2>Welcome Student!</h2><br>
+        <div class="container row">
+            <div class="col-md-3">
+                <button id="reg">Register</button>
+                <div class="register-div"> 
+                    <form action = "http://localhost:5000/student" method = "post">
+                        <p>Roll No:</p>
+                        <input type = "text" name = "rno" required />
+                        <p>Name:</p>
+                        <input type="text" name = "sname" required/>
+                        <p>DOB:</p>
+                        <input type="text" name = "dob" placeholder="dd/mm/yyyy" required/>
+                        <p>Course Id:</p>
+                        <input type="text" name="cid" required/><br><br>
+                        <p><input type = "submit" value = "submit" /></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <button id="courses">View Courses</button>
+                <div class="courses-div"> 
+                    <table id="course-table" class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Duration(weeks)</th>
+                            <th>Fee</th>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <button id="apply">Apply for a Course</button>
+                <div class="apply-div"> 
+                    <form action = "" method = "post">
+                        <p>Roll No:</p>
+                        <input type = "text" name = "rno" />
+                        <p>Course Id:</p>
+                        <input type="text" name="cid" /><br><br>
+                        <p><input type = "submit" value = "Apply" /></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script>
+    $(document).ready(function(){
+        $('#reg').click(function(){
+            $('.register-div').css('display', 'block');
+        });
+        $('#courses').click(function(){ 
+            $.ajax({
+                type: 'GET',
+                url: '/api/courses',
+                data: {},
+                success: function(response) {
+                    let courses = response.courses;
+                    generateCourseTable(courses);
+                }
+            });
+            $('.courses-div').css('display', 'block');
+        });
+
+        $('#apply').click(function(){
+            $('.apply-div').css('display', 'block');
+        });
+    });
+</script>

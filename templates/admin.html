@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <title>Admin</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="{{url_for('static', filename='js/view.js')}}"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <h2>Welcome Admin!</h2><br>
+        <div class="container row">
+            <div class="col-md-3">
+                <button id="anc">Add new Course</button>
+                <div class="add-course-div"> 
+                    <form action = "http://localhost:5000/admin" method = "post">
+                        <p>Course ID:</p>
+                        <input type = "text" name = "cid" required/>
+                        <p>Course Name:</p>
+                        <input type="text" name = "cname" required />
+                        <p>Duration(in weeks):</p>
+                        <input type="text" name = "dur" required/>
+                        <p>Fee:</p>
+                        <input type="text" name="fee" required/><br><br>
+                        <p><input type = "submit" value = "Add" /></p>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <button id="courses">View Courses</button>
+                <div class="courses-div"> 
+                    <table id="course-table" class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Duration</th>
+                            <th>Fee</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <button id="students">View Students</button>
+                <div class="students-div"> 
+                    <table id="student-table" class="table">
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Course ID</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+        </div>  
+    </body>
+</html>
+
+<script>
+     $(document).ready(function(){
+        $('#anc').click(function(){
+            $('.add-course-div').css('display', 'block');
+        });
+        $('#courses').click(function(){
+            $.ajax({
+                type: 'GET',
+                url: '/api/courses',
+                data: {},
+                success: function(response) {
+                    let courses = response.courses
+                    generateCourseTable(courses)
+                }
+            });
+            
+            $('.courses-div').css('display', 'block');
+        });
+        $('#students').click(function(){
+            $.ajax({
+                type:'GET',
+                url:'/api/students',
+                data:{},
+                success: function(response){
+                    let students = response.students;
+                    generateStudentTable(students);
+                } 
+            });
+            $('.students-div').css('display', 'block');
+        });
+    });
+</script>
